@@ -24,14 +24,9 @@ class RunnerThread(QThread):
 class MainController:
     def __init__(self, view):
         self.view = view
-        self.view.bind_controller(self)
+        self.view.sig_run.connect(self.run_model)
 
-    def handle_run_clicked(self):
-        model_name = self.view.combo_model.currentText()
-        input_dir = self.view.line_input.text()
-        output_dir = self.view.line_output.text()
-        weight_dir = self.view.line_weight.text()
-
+    def run_model(self, input_dir: str, output_dir: str, weight_dir: str, model_name: str):
         # spawn thread
         self.thread = RunnerThread(model_name, input_dir, output_dir, weight_dir)
         self.thread.signals.log.connect(self.view.append_log)

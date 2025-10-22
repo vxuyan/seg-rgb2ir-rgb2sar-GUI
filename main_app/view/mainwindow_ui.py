@@ -127,7 +127,7 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Multi-Model Inference GUI", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u56fe\u50cf\u5206\u5272\u4ee5\u53ca\u573a\u666f\u8fc1\u79fb\u5de5\u5177", None))
         self.label_input.setText(QCoreApplication.translate("MainWindow", u"\u8f93\u5165\u6587\u4ef6\u5939:", None))
         self.line_input.setText(QCoreApplication.translate("MainWindow", u"C:\\Users\\yanxu\\Desktop\\test\\inputs", None))
         self.btn_select_input.setText(QCoreApplication.translate("MainWindow", u"\u9009\u62e9...", None))
