@@ -1,0 +1,8 @@
+pyinstaller main_app/main.py ^
+--noconfirm ^
+--noconsole ^
+--name MultiModelApp ^
+--add-data "main_app/view/ui_mainwindow.ui;main_app/view" ^
+--add-data "main_app/view/icons;main_app/view/icons" ^
+--add-data "models;models" ^
+--add-data "assets;assets"
