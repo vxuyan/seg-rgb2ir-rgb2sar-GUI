@@ -1,13 +1,20 @@
+from typing import Optional
+
+from PySide6.QtCore import QObject, Signal
 from PySide6.QtWidgets import QFileDialog
 
 from ..model.project_config_model import ProjectConfigModel
 from ..view.project_config_window import ProjectConfigWindow
 
 
-class ProjectConfigController:
+class ProjectConfigController(QObject):
     """负责协调工程配置窗口与数据模型。"""
 
-    def __init__(self, view: ProjectConfigWindow, model: ProjectConfigModel):
+    sig_config_applied = Signal(object)
+    sig_config_cancelled = Signal()
+
+    def __init__(self, view: ProjectConfigWindow, model: ProjectConfigModel, parent: Optional[QObject] = None):
+        super().__init__(parent or view)
         self.view = view
         self.model = model
 
@@ -64,9 +71,11 @@ class ProjectConfigController:
         self.model.update(**self.view.get_form_data())
         valid, message = self.model.validate()
         if valid:
+            self.sig_config_applied.emit(self.model)
             self.view.accept()
         else:
             self.view.show_error(message)
 
     def on_cancel(self):
+        self.sig_config_cancelled.emit()
         self.view.reject()
