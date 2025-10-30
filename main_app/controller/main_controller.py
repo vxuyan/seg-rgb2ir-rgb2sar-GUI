@@ -43,16 +43,13 @@ class MainController:
 
     def on_open_project_config(self):
         dialog = ProjectConfigWindow(self.view)  # 传入主窗口作为父级
-        # 需要保持控制器的引用，避免被垃圾回收导致信号失效
         controller = ProjectConfigController(
-            dialog, self.project_config_model
+            dialog, self.project_config_model, parent=dialog
         )
         controller.sig_config_applied.connect(self.on_project_config_applied)
         controller.sig_config_cancelled.connect(self.on_project_config_cancelled)
-        self._project_config_controller = controller
         result = dialog.exec()
-        # 对话框关闭后不再需要控制器实例
-        self._project_config_controller = None
+        dialog.deleteLater()
         if result == QDialog.Accepted:
             # 未来可以在此处处理配置更新，例如刷新主界面显示
             pass
