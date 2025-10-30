@@ -15,87 +15,76 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QGridLayout, QHBoxLayout,
-    QLabel, QLineEdit, QMainWindow, QMenuBar,
-    QPushButton, QSizePolicy, QStatusBar, QTextEdit,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
+    QMainWindow, QMenuBar, QPushButton, QSizePolicy,
+    QStatusBar, QTextEdit, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(820, 520)
+        MainWindow.resize(1062, 740)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.gridLayout = QGridLayout()
-        self.gridLayout.setObjectName(u"gridLayout")
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.btn_config = QPushButton(self.centralwidget)
+        self.btn_config.setObjectName(u"btn_config")
+
+        self.horizontalLayout.addWidget(self.btn_config)
+
+        self.pushButton_2 = QPushButton(self.centralwidget)
+        self.pushButton_2.setObjectName(u"pushButton_2")
+
+        self.horizontalLayout.addWidget(self.pushButton_2)
+
+        self.pushButton_3 = QPushButton(self.centralwidget)
+        self.pushButton_3.setObjectName(u"pushButton_3")
+
+        self.horizontalLayout.addWidget(self.pushButton_3)
+
+        self.pushButton_4 = QPushButton(self.centralwidget)
+        self.pushButton_4.setObjectName(u"pushButton_4")
+
+        self.horizontalLayout.addWidget(self.pushButton_4)
+
+        self.pushButton_5 = QPushButton(self.centralwidget)
+        self.pushButton_5.setObjectName(u"pushButton_5")
+
+        self.horizontalLayout.addWidget(self.pushButton_5)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout)
+
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.label_input = QLabel(self.centralwidget)
         self.label_input.setObjectName(u"label_input")
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_input.sizePolicy().hasHeightForWidth())
+        self.label_input.setSizePolicy(sizePolicy)
+        self.label_input.setMinimumSize(QSize(256, 256))
+        self.label_input.setFrameShape(QFrame.Box)
+        self.label_input.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout.addWidget(self.label_input, 0, 0, 1, 1)
-
-        self.line_input = QLineEdit(self.centralwidget)
-        self.line_input.setObjectName(u"line_input")
-
-        self.gridLayout.addWidget(self.line_input, 0, 1, 1, 1)
-
-        self.btn_select_input = QPushButton(self.centralwidget)
-        self.btn_select_input.setObjectName(u"btn_select_input")
-
-        self.gridLayout.addWidget(self.btn_select_input, 0, 2, 1, 1)
+        self.horizontalLayout_2.addWidget(self.label_input)
 
         self.label_output = QLabel(self.centralwidget)
         self.label_output.setObjectName(u"label_output")
+        sizePolicy.setHeightForWidth(self.label_output.sizePolicy().hasHeightForWidth())
+        self.label_output.setSizePolicy(sizePolicy)
+        self.label_output.setMinimumSize(QSize(256, 256))
+        self.label_output.setFrameShape(QFrame.Box)
+        self.label_output.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout.addWidget(self.label_output, 1, 0, 1, 1)
-
-        self.line_output = QLineEdit(self.centralwidget)
-        self.line_output.setObjectName(u"line_output")
-
-        self.gridLayout.addWidget(self.line_output, 1, 1, 1, 1)
-
-        self.btn_select_output = QPushButton(self.centralwidget)
-        self.btn_select_output.setObjectName(u"btn_select_output")
-
-        self.gridLayout.addWidget(self.btn_select_output, 1, 2, 1, 1)
-
-        self.label_weight = QLabel(self.centralwidget)
-        self.label_weight.setObjectName(u"label_weight")
-
-        self.gridLayout.addWidget(self.label_weight, 2, 0, 1, 1)
-
-        self.line_weight = QLineEdit(self.centralwidget)
-        self.line_weight.setObjectName(u"line_weight")
-
-        self.gridLayout.addWidget(self.line_weight, 2, 1, 1, 1)
-
-        self.btn_select_weight = QPushButton(self.centralwidget)
-        self.btn_select_weight.setObjectName(u"btn_select_weight")
-
-        self.gridLayout.addWidget(self.btn_select_weight, 2, 2, 1, 1)
-
-        self.label_model = QLabel(self.centralwidget)
-        self.label_model.setObjectName(u"label_model")
-
-        self.gridLayout.addWidget(self.label_model, 3, 0, 1, 1)
-
-        self.combo_model = QComboBox(self.centralwidget)
-        self.combo_model.addItem("")
-        self.combo_model.addItem("")
-        self.combo_model.addItem("")
-        self.combo_model.setObjectName(u"combo_model")
-
-        self.gridLayout.addWidget(self.combo_model, 3, 1, 1, 1)
-
-        self.btn_run = QPushButton(self.centralwidget)
-        self.btn_run.setObjectName(u"btn_run")
-
-        self.gridLayout.addWidget(self.btn_run, 3, 2, 1, 1)
+        self.horizontalLayout_2.addWidget(self.label_output)
 
 
-        self.verticalLayout.addLayout(self.gridLayout)
+        self.verticalLayout.addLayout(self.horizontalLayout_2)
 
         self.hLayout = QHBoxLayout()
         self.hLayout.setObjectName(u"hLayout")
@@ -109,13 +98,18 @@ class Ui_MainWindow(object):
 
         self.text_log = QTextEdit(self.centralwidget)
         self.text_log.setObjectName(u"text_log")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.text_log.sizePolicy().hasHeightForWidth())
+        self.text_log.setSizePolicy(sizePolicy1)
 
         self.verticalLayout.addWidget(self.text_log)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 820, 21))
+        self.menubar.setGeometry(QRect(0, 0, 1062, 21))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -128,21 +122,13 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u56fe\u50cf\u5206\u5272\u4ee5\u53ca\u573a\u666f\u8fc1\u79fb\u5de5\u5177", None))
-        self.label_input.setText(QCoreApplication.translate("MainWindow", u"\u8f93\u5165\u6587\u4ef6\u5939:", None))
-        self.line_input.setText(QCoreApplication.translate("MainWindow", u"C:\\Users\\yanxu\\Desktop\\test\\inputs", None))
-        self.btn_select_input.setText(QCoreApplication.translate("MainWindow", u"\u9009\u62e9...", None))
-        self.label_output.setText(QCoreApplication.translate("MainWindow", u"\u8f93\u51fa\u6587\u4ef6\u5939:", None))
-        self.line_output.setText(QCoreApplication.translate("MainWindow", u"C:\\Users\\yanxu\\Desktop\\test\\outputs", None))
-        self.btn_select_output.setText(QCoreApplication.translate("MainWindow", u"\u9009\u62e9...", None))
-        self.label_weight.setText(QCoreApplication.translate("MainWindow", u"\u6743\u91cd\u76ee\u5f55:", None))
-        self.line_weight.setText(QCoreApplication.translate("MainWindow", u"C:\\Users\\yanxu\\Desktop\\test\\weights", None))
-        self.btn_select_weight.setText(QCoreApplication.translate("MainWindow", u"\u9009\u62e9...", None))
-        self.label_model.setText(QCoreApplication.translate("MainWindow", u"\u9009\u62e9\u6a21\u578b:", None))
-        self.combo_model.setItemText(0, QCoreApplication.translate("MainWindow", u"seg", None))
-        self.combo_model.setItemText(1, QCoreApplication.translate("MainWindow", u"rgb2ir", None))
-        self.combo_model.setItemText(2, QCoreApplication.translate("MainWindow", u"rgb2sar", None))
-
-        self.btn_run.setText(QCoreApplication.translate("MainWindow", u"\u8fd0\u884c\u6a21\u578b", None))
+        self.btn_config.setText(QCoreApplication.translate("MainWindow", u"\u5de5\u7a0b\u914d\u7f6e", None))
+        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"\u5206\u5272", None))
+        self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"rgb2ir", None))
+        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"rgb2sar", None))
+        self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"\u6a21\u62df", None))
+        self.label_input.setText(QCoreApplication.translate("MainWindow", u"\u8f93\u5165\u56fe\u50cf", None))
+        self.label_output.setText(QCoreApplication.translate("MainWindow", u"\u8f93\u51fa\u7ed3\u679c", None))
         self.label_loading.setText("")
     # retranslateUi
 

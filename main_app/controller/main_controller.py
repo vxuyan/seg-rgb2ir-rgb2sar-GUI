@@ -1,6 +1,8 @@
 import os
 from PySide6.QtCore import QThread, Signal, QObject
 from ..model.model_runner import ModelRunner
+from ..view.main_window import MainWindow
+from ..view.project_config_window import ProjectConfigWindow
 
 class WorkerSignals(QObject):
     finished = Signal()
@@ -22,9 +24,10 @@ class RunnerThread(QThread):
         self.signals.finished.emit()
 
 class MainController:
-    def __init__(self, view):
+    def __init__(self, view: MainWindow):
         self.view = view
         self.view.sig_run.connect(self.run_model)
+        self.view.sig_open_project_config.connect(self.on_open_project_config)
 
     def run_model(self, input_dir: str, output_dir: str, weight_dir: str, model_name: str):
         # spawn thread
@@ -32,3 +35,7 @@ class MainController:
         self.thread.signals.log.connect(self.view.append_log)
         self.thread.signals.finished.connect(self.view.stop_loading)
         self.thread.start()
+
+    def on_open_project_config(self):
+        dialog = ProjectConfigWindow(self.view)  # 传入主窗口作为父级
+        dialog.exec()  # 模态弹窗
