@@ -31,7 +31,8 @@ class MainController:
         self.view = view
         self.view.sig_run.connect(self.run_model)
         self.view.sig_open_project_config.connect(self.on_open_project_config)
-        self.project_config_model = ProjectConfigModel()
+        self._config_file_path = ProjectConfigModel.default_storage_path()
+        self.project_config_model = ProjectConfigModel.load_from_file(self._config_file_path)
 
     def run_model(self, input_dir: str, output_dir: str, weight_dir: str, model_name: str):
         # spawn thread
@@ -61,6 +62,7 @@ class MainController:
         # 当前主界面尚未展示配置概览，因此暂时不需要额外操作。
         # 该方法提供了扩展点，未来可以在此处更新 UI 或持久化配置。
         self.project_config_model = model
+        self.project_config_model.save_to_file(self._config_file_path)
 
     def on_project_config_cancelled(self):
         """配置对话框取消时触发，预留给未来扩展。"""
