@@ -1,18 +1,17 @@
 import os
-import sys
 import subprocess
 from .path_validator import validate_dirs
-from ..utils.path_helper import find_python_in_env_or_current, resource_path
+from ..utils.path_helper import resource_path
 from datetime import datetime
 
 class ModelRunner:
-    '''在一个多模型、多虚拟环境的项目中，用统一接口来调用不同模型的推理脚本，并实时地将运行日志（包括命令、输出、错误等）以流的形式输出。'''
+    '''在一个多模型的项目中，用统一接口来调用不同模型的推理可执行文件，并实时地将运行日志（包括命令、输出、错误等）以流的形式输出。'''
     def __init__(self):
-        # map model -> (env_folder, script_relpath)
+        # map model -> executable relative path
         self.model_map = {
-            "seg": ("env_seg", "models/seg_infer.py"),
-            "rgb2ir": ("env_ir", "models/rgb2ir_infer.py"),
-            "rgb2sar": ("env_sar", "models/rgb2sar_infer.py"),
+            "seg": "models/seg_infer.exe",
+            "rgb2ir": "models/rgb2ir_infer.exe",
+            "rgb2sar": "models/rgb2sar_infer.exe",
         }
 
     def _timestamp(self):
@@ -31,11 +30,14 @@ class ModelRunner:
             yield self._log(f"[ERROR] 未知模型: {model_name}")
             return
 
-        env_folder, script_rel = self.model_map[model_name]
-        py_path = find_python_in_env_or_current(env_folder)
-        script_path = resource_path(script_rel)
+        exe_rel = self.model_map[model_name]
+        exe_path = resource_path(exe_rel)
 
-        cmd = [py_path, script_path, "--input", input_dir, "--output", output_dir, "--weight", weight_dir]
+        if not os.path.exists(exe_path):
+            yield self._log(f"[ERROR] 找不到可执行文件: {exe_path}")
+            return
+
+        cmd = [exe_path, "--input", input_dir, "--output", output_dir, "--weight", weight_dir]
         yield self._log(f"[INFO] 调用命令: {' '.join(cmd)}")
 
         try:
