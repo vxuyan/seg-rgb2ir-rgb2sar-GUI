@@ -15,15 +15,16 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
-    QMainWindow, QMenuBar, QPushButton, QSizePolicy,
-    QStatusBar, QTreeView, QTextEdit, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QHeaderView,
+    QLabel, QMainWindow, QMenuBar, QPushButton,
+    QSizePolicy, QStatusBar, QTextEdit, QTreeView,
+    QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1062, 740)
+        MainWindow.resize(1221, 740)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
@@ -35,10 +36,10 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.btn_config)
 
-        self.pushButton_2 = QPushButton(self.centralwidget)
-        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.btn_seg = QPushButton(self.centralwidget)
+        self.btn_seg.setObjectName(u"btn_seg")
 
-        self.horizontalLayout.addWidget(self.pushButton_2)
+        self.horizontalLayout.addWidget(self.btn_seg)
 
         self.pushButton_3 = QPushButton(self.centralwidget)
         self.pushButton_3.setObjectName(u"pushButton_3")
@@ -76,11 +77,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_content.setObjectName(u"verticalLayout_content")
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.label_input = QLabel(self.centralwidget)
+        self.label_input.setObjectName(u"label_input")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
-        self.label_input = QLabel(self.centralwidget)
-        self.label_input.setObjectName(u"label_input")
         sizePolicy1.setHeightForWidth(self.label_input.sizePolicy().hasHeightForWidth())
         self.label_input.setSizePolicy(sizePolicy1)
         self.label_input.setMinimumSize(QSize(256, 256))
@@ -131,7 +132,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1062, 21))
+        self.menubar.setGeometry(QRect(0, 0, 1221, 21))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -145,7 +146,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u56fe\u50cf\u5206\u5272\u4ee5\u53ca\u573a\u666f\u8fc1\u79fb\u5de5\u5177", None))
         self.btn_config.setText(QCoreApplication.translate("MainWindow", u"\u5de5\u7a0b\u914d\u7f6e", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"\u5206\u5272", None))
+        self.btn_seg.setText(QCoreApplication.translate("MainWindow", u"\u5206\u5272", None))
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"rgb2ir", None))
         self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"rgb2sar", None))
         self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"\u6a21\u62df", None))
