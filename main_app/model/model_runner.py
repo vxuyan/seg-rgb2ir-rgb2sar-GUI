@@ -1,18 +1,18 @@
 import os
-import sys
-import subprocess
-from .path_validator import validate_dirs
-from ..utils.path_helper import find_python_in_env_or_current, resource_path
 from datetime import datetime
+from typing import List, Optional, Tuple
+
+from .path_validator import validate_dirs
+from ..utils.path_helper import resource_path
 
 class ModelRunner:
-    '''在一个多模型、多虚拟环境的项目中，用统一接口来调用不同模型的推理脚本，并实时地将运行日志（包括命令、输出、错误等）以流的形式输出。'''
+    """统一准备模型推理可执行文件命令并格式化日志输出。"""
     def __init__(self):
-        # map model -> (env_folder, script_relpath)
+        # map model -> executable relative path
         self.model_map = {
-            "seg": ("env_seg", "models/seg_infer.py"),
-            "rgb2ir": ("env_ir", "models/rgb2ir_infer.py"),
-            "rgb2sar": ("env_sar", "models/rgb2sar_infer.py"),
+            "seg": "models/seg_infer.exe",
+            "rgb2ir": "models/rgb2ir_infer.exe",
+            "rgb2sar": "models/rgb2sar_infer.exe",
         }
 
     def _timestamp(self):
@@ -21,32 +21,43 @@ class ModelRunner:
     def _log(self, msg: str):
         return f"[{self._timestamp()}] {msg}"
 
-    def run_model_stream(self, model_name: str, input_dir: str, output_dir: str, weight_dir: str):
+    def format_log(self, message: str) -> str:
+        return self._log(message)
+
+    def prepare_model_command(
+        self, model_name: str, input_dir: str, output_dir: str, weight_dir: str
+    ) -> Tuple[Optional[List[str]], List[str]]:
+        """
+        验证路径和模型名称，并返回可执行命令及预先需要输出的日志。
+
+        Args:
+            model_name: 模型名称 key。
+            input_dir: 输入目录。
+            output_dir: 输出目录。
+            weight_dir: 权重目录。
+
+        Returns:
+            (command, logs) 二元组。若验证失败，command 为 None，logs 中包含错误信息。
+        """
+
+        logs: List[str] = []
+
         ok, msg = validate_dirs(input_dir, output_dir, weight_dir)
         if not ok:
-            yield self._log(f"[ERROR] {msg}")
-            return
+            logs.append(self._log(f"[ERROR] {msg}"))
+            return None, logs
 
         if model_name not in self.model_map:
-            yield self._log(f"[ERROR] 未知模型: {model_name}")
-            return
+            logs.append(self._log(f"[ERROR] 未知模型: {model_name}"))
+            return None, logs
 
-        env_folder, script_rel = self.model_map[model_name]
-        py_path = find_python_in_env_or_current(env_folder)
-        script_path = resource_path(script_rel)
+        exe_rel = self.model_map[model_name]
+        exe_path = resource_path(exe_rel)
 
-        cmd = [py_path, script_path, "--input", input_dir, "--output", output_dir, "--weight", weight_dir]
-        yield self._log(f"[INFO] 调用命令: {' '.join(cmd)}")
+        if not os.path.exists(exe_path):
+            logs.append(self._log(f"[ERROR] 找不到可执行文件: {exe_path}"))
+            return None, logs
 
-        try:
-            proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-            for line in proc.stdout:
-                yield self._log(line.rstrip())
-            proc.wait()
-            yield self._log(f"[INFO] 退出码: {proc.returncode}")
-            # 在一次执行结束后产出一个空行，便于两次执行日志之间有空行间隔
-            yield ""
-        except Exception as e:
-            yield self._log(f"[EXCEPTION] {e}")
-            # 即使发生异常，也在结束时产出一个空行
-            yield ""
+        cmd = [exe_path, input_dir, output_dir, weight_dir]
+        logs.append(self._log(f"[INFO] 调用命令: {' '.join(cmd)}"))
+        return cmd, logs
