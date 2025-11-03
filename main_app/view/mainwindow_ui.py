@@ -35,10 +35,10 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.btn_config)
 
-        self.pushButton_2 = QPushButton(self.centralwidget)
-        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.btn_seg = QPushButton(self.centralwidget)
+        self.btn_seg.setObjectName(u"btn_seg")
 
-        self.horizontalLayout.addWidget(self.pushButton_2)
+        self.horizontalLayout.addWidget(self.btn_seg)
 
         self.pushButton_3 = QPushButton(self.centralwidget)
         self.pushButton_3.setObjectName(u"pushButton_3")
@@ -145,7 +145,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u56fe\u50cf\u5206\u5272\u4ee5\u53ca\u573a\u666f\u8fc1\u79fb\u5de5\u5177", None))
         self.btn_config.setText(QCoreApplication.translate("MainWindow", u"\u5de5\u7a0b\u914d\u7f6e", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"\u5206\u5272", None))
+        self.btn_seg.setText(QCoreApplication.translate("MainWindow", u"\u5206\u5272", None))
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"rgb2ir", None))
         self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"rgb2sar", None))
         self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"\u6a21\u62df", None))

@@ -10,6 +10,7 @@ from ..utils.path_helper import resource_path
 class MainWindow(QMainWindow, Ui_MainWindow):
     sig_run = Signal(str, str, str, str)  # 传递输入目录、输出目录、权重路径和模型名称
     sig_open_project_config = Signal()  # 打开工程配置窗口的信号
+    sig_seg_clicked = Signal()  # 触发分割模型执行
 
     def __init__(self):
         super().__init__()
@@ -77,12 +78,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def _connect_signals(self):
         self.btn_config.clicked.connect(self.sig_open_project_config)
+        self.btn_seg.clicked.connect(self.sig_seg_clicked.emit)
 
     def append_log(self, text):
         self.text_log.append(text)
 
     def stop_loading(self):
         self.label_loading.setVisible(False)
+
+    def start_loading(self):
+        self.label_loading.setVisible(True)
 
     def _load_image_from_path(self, path: Path):
         pixmap = QPixmap(str(path))
