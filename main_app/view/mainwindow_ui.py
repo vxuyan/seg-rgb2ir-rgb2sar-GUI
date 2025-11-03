@@ -17,7 +17,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
     QMainWindow, QMenuBar, QPushButton, QSizePolicy,
-    QStatusBar, QTextEdit, QVBoxLayout, QWidget)
+    QStatusBar, QTreeView, QTextEdit, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -58,15 +58,31 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout)
 
-        self.horizontalLayout_2 = QHBoxLayout()
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.label_input = QLabel(self.centralwidget)
-        self.label_input.setObjectName(u"label_input")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        self.horizontalLayout_browser = QHBoxLayout()
+        self.horizontalLayout_browser.setObjectName(u"horizontalLayout_browser")
+        self.tree_file_browser = QTreeView(self.centralwidget)
+        self.tree_file_browser.setObjectName(u"tree_file_browser")
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_input.sizePolicy().hasHeightForWidth())
-        self.label_input.setSizePolicy(sizePolicy)
+        sizePolicy.setHeightForWidth(self.tree_file_browser.sizePolicy().hasHeightForWidth())
+        self.tree_file_browser.setSizePolicy(sizePolicy)
+        self.tree_file_browser.setMinimumSize(QSize(220, 0))
+        self.tree_file_browser.setHeaderHidden(True)
+
+        self.horizontalLayout_browser.addWidget(self.tree_file_browser)
+
+        self.verticalLayout_content = QVBoxLayout()
+        self.verticalLayout_content.setObjectName(u"verticalLayout_content")
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        self.label_input = QLabel(self.centralwidget)
+        self.label_input.setObjectName(u"label_input")
+        sizePolicy1.setHeightForWidth(self.label_input.sizePolicy().hasHeightForWidth())
+        self.label_input.setSizePolicy(sizePolicy1)
         self.label_input.setMinimumSize(QSize(256, 256))
         self.label_input.setFrameShape(QFrame.Box)
         self.label_input.setAlignment(Qt.AlignCenter)
@@ -75,8 +91,8 @@ class Ui_MainWindow(object):
 
         self.label_output = QLabel(self.centralwidget)
         self.label_output.setObjectName(u"label_output")
-        sizePolicy.setHeightForWidth(self.label_output.sizePolicy().hasHeightForWidth())
-        self.label_output.setSizePolicy(sizePolicy)
+        sizePolicy1.setHeightForWidth(self.label_output.sizePolicy().hasHeightForWidth())
+        self.label_output.setSizePolicy(sizePolicy1)
         self.label_output.setMinimumSize(QSize(256, 256))
         self.label_output.setFrameShape(QFrame.Box)
         self.label_output.setAlignment(Qt.AlignCenter)
@@ -84,7 +100,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.label_output)
 
 
-        self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.verticalLayout_content.addLayout(self.horizontalLayout_2)
 
         self.hLayout = QHBoxLayout()
         self.hLayout.setObjectName(u"hLayout")
@@ -94,17 +110,23 @@ class Ui_MainWindow(object):
         self.hLayout.addWidget(self.label_loading)
 
 
-        self.verticalLayout.addLayout(self.hLayout)
+        self.verticalLayout_content.addLayout(self.hLayout)
 
         self.text_log = QTextEdit(self.centralwidget)
         self.text_log.setObjectName(u"text_log")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.text_log.sizePolicy().hasHeightForWidth())
-        self.text_log.setSizePolicy(sizePolicy1)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.text_log.sizePolicy().hasHeightForWidth())
+        self.text_log.setSizePolicy(sizePolicy2)
 
-        self.verticalLayout.addWidget(self.text_log)
+        self.verticalLayout_content.addWidget(self.text_log)
+
+
+        self.horizontalLayout_browser.addLayout(self.verticalLayout_content)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_browser)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
